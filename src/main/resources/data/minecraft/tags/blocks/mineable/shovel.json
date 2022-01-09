@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "grassslabs:grass_slab",
+    "grassslabs:grass_stairs",
+    "grassslabs:dirt_slab",
+    "grassslabs:dirt_stairs",
+    "grassslabs:mycelium_slab",
+    "grassslabs:mycelium_stairs",
+    "grassslabs:dirt_path_slab",
+    "grassslabs:dirt_path_stairs"
+  ]
+}

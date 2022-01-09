@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "grassslabs:block/mycelium_slab"
+    },
+    "type=top": {
+      "model": "grassslabs:block/mycelium_slab_top"
+    },
+    "type=double": {
+      "model": "grassslabs:block/mycelium_slab_full"
+    }
+  }
+}

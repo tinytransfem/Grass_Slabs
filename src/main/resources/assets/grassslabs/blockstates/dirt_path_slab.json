@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "grassslabs:block/dirt_path_slab"
+    },
+    "type=top": {
+      "model": "grassslabs:block/dirt_path_slab_top"
+    },
+    "type=double": {
+      "model": "grassslabs:block/dirt_path_slab_full"
+    }
+  }
+}
