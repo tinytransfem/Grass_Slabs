@@ -1,0 +1,16 @@
+{
+  "group": "grassslabs",
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "00"
+  ],
+  "key": {
+    "0": {
+      "item": "minecraft:grass_block"
+    }
+  },
+  "result": {
+    "item": "grassslabs:grass_carpet",
+    "count": 3
+  }
+}

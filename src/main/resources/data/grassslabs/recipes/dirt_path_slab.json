@@ -1,0 +1,16 @@
+{
+  "group": "grassslabs",
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "000"
+  ],
+  "key": {
+    "0": {
+      "item": "minecraft:dirt_path"
+    }
+  },
+  "result": {
+    "item": "grassslabs:dirt_path_slab",
+    "count": 6
+  }
+}
