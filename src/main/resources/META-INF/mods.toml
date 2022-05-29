@@ -4,11 +4,11 @@ license="MIT License"
 
 [[mods]]
 modId="grassslabs"
-version="1.1.0"
+version="1.2.0"
 displayName="Grass Slabs, Carpets & Stairs"
 credits="Huge credit to my constant anger towards missing dirt and grass slabs!"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/grass-slabs-carpets-stairs"
-authors="Kuraion"
+authors="Kuraion, nivthefox"
 logoFile="logo.png"
 description='''Adds slabs, carpets and stairs for dirt blocks, grass blocks, path blocks, and mycelium blocks.'''
 
@@ -18,7 +18,3 @@ description='''Adds slabs, carpets and stairs for dirt blocks, grass blocks, pat
     versionRange="[1.18,]"
     ordering="NONE"
     side="BOTH"
-
-
-
-
