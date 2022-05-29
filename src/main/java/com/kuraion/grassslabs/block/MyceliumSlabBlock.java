@@ -16,6 +16,7 @@ import java.util.List;
 public class MyceliumSlabBlock extends SlabBlock {
 	public MyceliumSlabBlock() {
 		super(Properties.of(Material.GRASS).sound(SoundType.GRASS).strength(0.5f, 0.6f).lightLevel(s -> 0));
+		setRegistryName("mycelium_slab");
 	}
 
 	@Override

@@ -28,6 +28,7 @@ import java.util.List;
 public class DirtPathSlabBlock extends SlabBlock {
 	public DirtPathSlabBlock() {
 		super(Properties.of(Material.DIRT).sound(SoundType.GRASS).strength(0.65f, 0.65f).lightLevel(s -> 0));
+		setRegistryName("dirt_path_slab");
 	}
 
 	protected static final VoxelShape BOTTOM_AABB = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 7.0D, 16.0D);
@@ -61,6 +62,6 @@ public class DirtPathSlabBlock extends SlabBlock {
 
 	@OnlyIn(Dist.CLIENT)
 	public static void registerRenderLayer() {
-		ItemBlockRenderTypes.setRenderLayer(GrassslabsModBlocks.DIRT_PATH_SLAB.get(), renderType -> renderType == RenderType.cutout());
+		ItemBlockRenderTypes.setRenderLayer(GrassslabsModBlocks.DIRT_PATH_SLAB, renderType -> renderType == RenderType.cutout());
 	}
 }
