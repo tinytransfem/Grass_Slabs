@@ -25,7 +25,6 @@ import java.util.List;
 public class GrassCarpetBlock extends CarpetBlock {
 	public GrassCarpetBlock() {
 		super(Properties.of(Material.GRASS).sound(SoundType.GRASS).strength(0.1f, 0.1f).lightLevel(s -> 0));
-		setRegistryName("grass_carpet");
 	}
 
 	@Override
@@ -45,13 +44,13 @@ public class GrassCarpetBlock extends CarpetBlock {
 	public static void blockColorLoad(ColorHandlerEvent.Block event) {
 		event.getBlockColors().register((bs, world, pos, index) -> {
 			return world != null && pos != null ? BiomeColors.getAverageGrassColor(world, pos) : GrassColor.get(0.5D, 1.0D);
-		}, GrassslabsModBlocks.GRASS_CARPET);
+		}, GrassslabsModBlocks.GRASS_CARPET.get());
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	public static void itemColorLoad(ColorHandlerEvent.Item event) {
 		event.getItemColors().register((stack, index) -> {
 			return GrassColor.get(0.5D, 1.0D);
-		}, GrassslabsModBlocks.GRASS_CARPET);
+		}, GrassslabsModBlocks.GRASS_CARPET.get());
 	}
 }

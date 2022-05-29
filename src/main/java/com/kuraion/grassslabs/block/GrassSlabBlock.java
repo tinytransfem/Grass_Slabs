@@ -1,8 +1,10 @@
 
 package com.kuraion.grassslabs.block;
 
+import com.kuraion.grassslabs.GrassslabsMod;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.level.biome.BiomeSpecialEffects;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.api.distmarker.Dist;
@@ -27,7 +29,6 @@ import com.kuraion.grassslabs.init.GrassslabsModBlocks;
 public class GrassSlabBlock extends SlabBlock {
 	public GrassSlabBlock() {
 		super(Properties.of(Material.GRASS).sound(SoundType.GRASS).strength(0.6f, 0.6f).lightLevel(s -> 0));
-		setRegistryName("grass_slab");
 	}
 
 	@Override
@@ -47,18 +48,18 @@ public class GrassSlabBlock extends SlabBlock {
 	public static void blockColorLoad(ColorHandlerEvent.Block event) {
 		event.getBlockColors().register((bs, world, pos, index) -> {
 			return world != null && pos != null ? BiomeColors.getAverageGrassColor(world, pos) : GrassColor.get(0.5D, 1.0D);
-		}, GrassslabsModBlocks.GRASS_SLAB);
+		}, GrassslabsModBlocks.GRASS_SLAB.get());
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	public static void itemColorLoad(ColorHandlerEvent.Item event) {
 		event.getItemColors().register((stack, index) -> {
 			return GrassColor.get(0.5D, 1.0D);
-		}, GrassslabsModBlocks.GRASS_SLAB);
+		}, GrassslabsModBlocks.GRASS_SLAB.get());
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	public static void registerRenderLayer() {
-		ItemBlockRenderTypes.setRenderLayer(GrassslabsModBlocks.GRASS_SLAB, renderType -> renderType == RenderType.cutoutMipped());
+		ItemBlockRenderTypes.setRenderLayer(GrassslabsModBlocks.GRASS_SLAB.get(), renderType -> renderType == RenderType.cutoutMipped());
 	}
 }

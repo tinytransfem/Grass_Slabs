@@ -25,7 +25,6 @@ public class DirtStairsBlock extends StairBlock {
         super(() -> new Block(Properties.of(Material.DIRT).sound(SoundType.GRAVEL).strength(0.5f, 0.5f).lightLevel(s -> 0).dynamicShape())
                         .defaultBlockState(),
                 Properties.of(Material.DIRT).sound(SoundType.GRAVEL).strength(0.5f, 0.5f).lightLevel(s -> 0).dynamicShape());
-        setRegistryName("dirt_stairs");
     }
 
     @Override

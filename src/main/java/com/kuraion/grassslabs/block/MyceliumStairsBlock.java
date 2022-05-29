@@ -17,7 +17,6 @@ public class MyceliumStairsBlock extends StairBlock {
         super(() -> new Block(Properties.of(Material.GRASS).sound(SoundType.GRASS).strength(0.5f, 0.6f).lightLevel(s -> 0).dynamicShape())
                         .defaultBlockState(),
                 Properties.of(Material.GRASS).sound(SoundType.GRASS).strength(0.5f, 0.6f).lightLevel(s -> 0).dynamicShape());
-        setRegistryName("mycelium_stairs");
     }
 
     @Override

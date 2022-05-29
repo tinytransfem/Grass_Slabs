@@ -1,6 +1,10 @@
 
 package com.kuraion.grassslabs;
 
+import com.kuraion.grassslabs.init.GrassslabsModBlocks;
+import com.kuraion.grassslabs.init.GrassslabsModItems;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
@@ -24,6 +28,11 @@ public class GrassslabsMod {
 	public static final SimpleChannel PACKET_HANDLER = NetworkRegistry.newSimpleChannel(new ResourceLocation(MODID, MODID), () -> PROTOCOL_VERSION,
 			PROTOCOL_VERSION::equals, PROTOCOL_VERSION::equals);
 	private static int messageID = 0;
+
+	public GrassslabsMod() {
+		IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
+		GrassslabsModBlocks.BLOCKS.register(modBus);
+	}
 
 	public static <T> void addNetworkMessage(Class<T> messageType, BiConsumer<T, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, T> decoder,
 			BiConsumer<T, Supplier<NetworkEvent.Context>> messageConsumer) {
