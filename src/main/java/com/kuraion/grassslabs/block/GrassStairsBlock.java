@@ -24,9 +24,7 @@ import com.kuraion.grassslabs.init.GrassslabsModBlocks;
 
 public class GrassStairsBlock extends StairBlock {
     public GrassStairsBlock() {
-        super(() -> new Block(Block.Properties.of(Material.GRASS).sound(SoundType.GRASS).strength(0.6f, 0.6f).lightLevel(s -> 0).dynamicShape())
-                        .defaultBlockState(),
-                Block.Properties.of(Material.GRASS).sound(SoundType.GRASS).strength(0.6f, 0.6f).lightLevel(s -> 0).dynamicShape());
+        super(() -> (GrassslabsModBlocks.GRASS_SLAB.get()).defaultBlockState(), Properties.of(Material.DIRT).sound(SoundType.GRAVEL).strength(0.5f, 0.5f).lightLevel(s -> 0).dynamicShape());
     }
 
     @Override
