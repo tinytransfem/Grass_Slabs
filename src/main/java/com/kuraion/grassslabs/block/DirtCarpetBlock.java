@@ -21,7 +21,6 @@ import java.util.List;
 public class DirtCarpetBlock extends CarpetBlock {
 	public DirtCarpetBlock() {
 		super(Properties.of(Material.DIRT).sound(SoundType.GRAVEL).strength(0.1f, 0.1f).lightLevel(s -> 0));
-		setRegistryName("dirt_carpet");
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 
 package com.kuraion.grassslabs.block;
 
+import com.kuraion.grassslabs.init.GrassslabsModBlocks;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
@@ -14,10 +15,7 @@ import java.util.List;
 
 public class MyceliumStairsBlock extends StairBlock {
     public MyceliumStairsBlock() {
-        super(() -> new Block(Properties.of(Material.GRASS).sound(SoundType.GRASS).strength(0.5f, 0.6f).lightLevel(s -> 0).dynamicShape())
-                        .defaultBlockState(),
-                Properties.of(Material.GRASS).sound(SoundType.GRASS).strength(0.5f, 0.6f).lightLevel(s -> 0).dynamicShape());
-        setRegistryName("mycelium_stairs");
+        super(() -> (GrassslabsModBlocks.MYCELIUM_SLAB.get()).defaultBlockState(), Properties.of(Material.DIRT).sound(SoundType.GRAVEL).strength(0.5f, 0.5f).lightLevel(s -> 0).dynamicShape());
     }
 
     @Override

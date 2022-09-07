@@ -24,10 +24,7 @@ import com.kuraion.grassslabs.init.GrassslabsModBlocks;
 
 public class GrassStairsBlock extends StairBlock {
     public GrassStairsBlock() {
-        super(() -> new Block(Block.Properties.of(Material.GRASS).sound(SoundType.GRASS).strength(0.6f, 0.6f).lightLevel(s -> 0).dynamicShape())
-                        .defaultBlockState(),
-                Block.Properties.of(Material.GRASS).sound(SoundType.GRASS).strength(0.6f, 0.6f).lightLevel(s -> 0).dynamicShape());
-        setRegistryName("grass_stairs");
+        super(() -> (GrassslabsModBlocks.GRASS_SLAB.get()).defaultBlockState(), Properties.of(Material.DIRT).sound(SoundType.GRAVEL).strength(0.5f, 0.5f).lightLevel(s -> 0).dynamicShape());
     }
 
     @Override
@@ -42,18 +39,18 @@ public class GrassStairsBlock extends StairBlock {
     public static void blockColorLoad(ColorHandlerEvent.Block event) {
         event.getBlockColors().register((bs, world, pos, index) -> {
             return world != null && pos != null ? BiomeColors.getAverageGrassColor(world, pos) : GrassColor.get(0.5D, 1.0D);
-        }, GrassslabsModBlocks.GRASS_STAIRS);
+        }, GrassslabsModBlocks.GRASS_STAIRS.get());
     }
 
     @OnlyIn(Dist.CLIENT)
     public static void itemColorLoad(ColorHandlerEvent.Item event) {
         event.getItemColors().register((stack, index) -> {
             return GrassColor.get(0.5D, 1.0D);
-        }, GrassslabsModBlocks.GRASS_STAIRS);
+        }, GrassslabsModBlocks.GRASS_STAIRS.get());
     }
 
     @OnlyIn(Dist.CLIENT)
     public static void registerRenderLayer() {
-        ItemBlockRenderTypes.setRenderLayer(GrassslabsModBlocks.GRASS_STAIRS, renderType -> renderType == RenderType.cutoutMipped());
+        ItemBlockRenderTypes.setRenderLayer(GrassslabsModBlocks.GRASS_STAIRS.get(), renderType -> renderType == RenderType.cutoutMipped());
     }
 }

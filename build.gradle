@@ -9,15 +9,16 @@ buildscript {
 }
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
+apply plugin: 'idea'
 
-version = '1.1'
+version = '1.2.1'
 group = 'com.kuraion.grassslabs'
 archivesBaseName = 'grassslabs'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
-    mappings channel: 'official', version: '1.18.1'
+    mappings channel: 'official', version: '1.18.2'
 
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
@@ -50,7 +51,9 @@ minecraft {
     }
 }
 
+jar.finalizedBy('reobfJar')
+
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.18.1-39.0.5'
+    minecraft 'net.minecraftforge:forge:1.18.2-40.1.25'
 }
 
