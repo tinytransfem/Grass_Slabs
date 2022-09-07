@@ -1,0 +1,16 @@
+{
+  "group": "grassslabs",
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "00"
+  ],
+  "key": {
+    "0": {
+      "item": "minecraft:podzol"
+    }
+  },
+  "result": {
+    "item": "grassslabs:podzol_carpet",
+    "count": 3
+  }
+}

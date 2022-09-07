@@ -1,30 +1,36 @@
 
 package com.kuraion.grassslabs.block;
 
+import com.kuraion.grassslabs.init.GrassslabsModBlocks;
+import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraftforge.client.event.ColorHandlerEvent;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.api.distmarker.Dist;
-
-import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.StairBlock;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.GrassColor;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.common.ToolAction;
+import net.minecraftforge.common.ToolActions;
+import net.minecraftforge.registries.RegistryObject;
 
-import java.util.List;
+import javax.annotation.Nullable;
 import java.util.Collections;
-
-import com.kuraion.grassslabs.init.GrassslabsModBlocks;
+import java.util.List;
+import java.util.function.Supplier;
 
 public class GrassStairsBlock extends StairBlock {
-    public GrassStairsBlock() {
+    private final Supplier<BlockState> flattenedBlock;
+
+    public GrassStairsBlock(RegistryObject<DirtPathStairsBlock> flattenedBlock) {
         super(() -> (GrassslabsModBlocks.GRASS_SLAB.get()).defaultBlockState(), Properties.of(Material.DIRT).sound(SoundType.GRAVEL).strength(0.5f, 0.5f).lightLevel(s -> 0).dynamicShape());
+        this.flattenedBlock = flattenedBlock == null ? null : () -> flattenedBlock.get().defaultBlockState();
     }
 
     @Override
@@ -36,14 +42,14 @@ public class GrassStairsBlock extends StairBlock {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static void blockColorLoad(ColorHandlerEvent.Block event) {
+    public static void blockColorLoad(RegisterColorHandlersEvent.Block event) {
         event.getBlockColors().register((bs, world, pos, index) -> {
             return world != null && pos != null ? BiomeColors.getAverageGrassColor(world, pos) : GrassColor.get(0.5D, 1.0D);
         }, GrassslabsModBlocks.GRASS_STAIRS.get());
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static void itemColorLoad(ColorHandlerEvent.Item event) {
+    public static void itemColorLoad(RegisterColorHandlersEvent.Item event) {
         event.getItemColors().register((stack, index) -> {
             return GrassColor.get(0.5D, 1.0D);
         }, GrassslabsModBlocks.GRASS_STAIRS.get());
@@ -52,5 +58,15 @@ public class GrassStairsBlock extends StairBlock {
     @OnlyIn(Dist.CLIENT)
     public static void registerRenderLayer() {
         ItemBlockRenderTypes.setRenderLayer(GrassslabsModBlocks.GRASS_STAIRS.get(), renderType -> renderType == RenderType.cutoutMipped());
+    }
+
+    @Nullable
+    @Override
+    public BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction toolAction, boolean simulate) {
+        
+        if (flattenedBlock == null)
+            return super.getToolModifiedState(state, context, toolAction, simulate);
+
+        return ToolActions.SHOVEL_FLATTEN.equals(toolAction) ? flattenedBlock.get() : null;
     }
 }

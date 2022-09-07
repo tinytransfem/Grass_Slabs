@@ -13,14 +13,14 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import java.util.Collections;
 import java.util.List;
 
-public class DirtSlabBlock extends SlabBlock {
-	public DirtSlabBlock() {
-		super(Properties.of(Material.DIRT).sound(SoundType.GRAVEL).strength(0.5f, 0.5f).lightLevel(s -> 0));
+public class PodzolSlabBlock extends SlabBlock {
+	public PodzolSlabBlock() {
+		super(Properties.of(Material.GRASS).sound(SoundType.GRASS).strength(0.5f, 0.6f).lightLevel(s -> 0));
 	}
 
 	@Override
 	public MaterialColor defaultMaterialColor() {
-		return MaterialColor.DIRT;
+		return MaterialColor.GRASS;
 	}
 
 	@Override

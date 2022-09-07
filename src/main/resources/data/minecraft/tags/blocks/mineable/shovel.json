@@ -8,6 +8,8 @@
     "grassslabs:mycelium_slab",
     "grassslabs:mycelium_stairs",
     "grassslabs:dirt_path_slab",
-    "grassslabs:dirt_path_stairs"
+    "grassslabs:dirt_path_stairs",
+    "grassslabs:podzol_slab",
+    "grassslabs:podzol_stairs"
   ]
 }

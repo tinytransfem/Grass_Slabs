@@ -1,34 +1,38 @@
 
 package com.kuraion.grassslabs.block;
 
-import com.kuraion.grassslabs.GrassslabsMod;
+import com.kuraion.grassslabs.init.GrassslabsModBlocks;
+import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.world.level.biome.BiomeSpecialEffects;
-import net.minecraftforge.client.event.ColorHandlerEvent;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.api.distmarker.Dist;
-
-import net.minecraft.world.level.storage.loot.LootContext;
-import net.minecraft.world.level.material.MaterialColor;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.block.state.properties.SlabType;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.GrassColor;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.client.renderer.BiomeColors;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.GrassColor;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.SlabType;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.common.ToolAction;
+import net.minecraftforge.common.ToolActions;
+import net.minecraftforge.registries.RegistryObject;
 
-import java.util.List;
+import javax.annotation.Nullable;
 import java.util.Collections;
-
-import com.kuraion.grassslabs.init.GrassslabsModBlocks;
+import java.util.List;
+import java.util.function.Supplier;
 
 public class GrassSlabBlock extends SlabBlock {
-	public GrassSlabBlock() {
+	private final Supplier<BlockState> flattenedBlock;
+
+	public GrassSlabBlock(RegistryObject<DirtPathSlabBlock> flattenedBlock) {
 		super(Properties.of(Material.GRASS).sound(SoundType.GRASS).strength(0.6f, 0.6f).lightLevel(s -> 0));
+		this.flattenedBlock = flattenedBlock == null ? null : () -> flattenedBlock.get().defaultBlockState();
 	}
 
 	@Override
@@ -45,14 +49,14 @@ public class GrassSlabBlock extends SlabBlock {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void blockColorLoad(ColorHandlerEvent.Block event) {
+	public static void blockColorLoad(RegisterColorHandlersEvent.Block event) {
 		event.getBlockColors().register((bs, world, pos, index) -> {
 			return world != null && pos != null ? BiomeColors.getAverageGrassColor(world, pos) : GrassColor.get(0.5D, 1.0D);
 		}, GrassslabsModBlocks.GRASS_SLAB.get());
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public static void itemColorLoad(ColorHandlerEvent.Item event) {
+	public static void itemColorLoad(RegisterColorHandlersEvent.Item event) {
 		event.getItemColors().register((stack, index) -> {
 			return GrassColor.get(0.5D, 1.0D);
 		}, GrassslabsModBlocks.GRASS_SLAB.get());
@@ -61,5 +65,14 @@ public class GrassSlabBlock extends SlabBlock {
 	@OnlyIn(Dist.CLIENT)
 	public static void registerRenderLayer() {
 		ItemBlockRenderTypes.setRenderLayer(GrassslabsModBlocks.GRASS_SLAB.get(), renderType -> renderType == RenderType.cutoutMipped());
+	}
+
+	@Nullable
+	@Override
+	public BlockState getToolModifiedState(BlockState state, UseOnContext context, ToolAction toolAction, boolean simulate) {
+		if (flattenedBlock == null)
+			return super.getToolModifiedState(state, context, toolAction, simulate);
+
+		return ToolActions.SHOVEL_FLATTEN.equals(toolAction) ? flattenedBlock.get() : null;
 	}
 }
