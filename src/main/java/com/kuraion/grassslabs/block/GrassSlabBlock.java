@@ -8,13 +8,11 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.GrassColor;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.SlabType;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
@@ -31,21 +29,16 @@ public class GrassSlabBlock extends SlabBlock {
 	private final Supplier<BlockState> flattenedBlock;
 
 	public GrassSlabBlock(RegistryObject<DirtPathSlabBlock> flattenedBlock) {
-		super(Properties.of(Material.GRASS).sound(SoundType.GRASS).strength(0.6f, 0.6f).lightLevel(s -> 0));
+		super(Properties.copy(Blocks.GRASS_BLOCK).sound(SoundType.GRASS).strength(0.6f, 0.6f).lightLevel(s -> 0));
 		this.flattenedBlock = flattenedBlock == null ? null : () -> flattenedBlock.get().defaultBlockState();
 	}
 
 	@Override
-	public MaterialColor defaultMaterialColor() {
-		return MaterialColor.GRASS;
-	}
-
-	@Override
-	public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+	public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
 		List<ItemStack> dropsOriginal = super.getDrops(state, builder);
 		if (!dropsOriginal.isEmpty())
 			return dropsOriginal;
-		return Collections.singletonList(new ItemStack(this, state.getValue(TYPE) == SlabType.DOUBLE ? 2 : 1));
+		return Collections.singletonList(new ItemStack(this, 1));
 	}
 
 	@OnlyIn(Dist.CLIENT)

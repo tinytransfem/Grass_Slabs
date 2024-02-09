@@ -8,15 +8,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.SlabType;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -27,7 +25,7 @@ import java.util.List;
 
 public class DirtPathSlabBlock extends SlabBlock {
 	public DirtPathSlabBlock() {
-		super(Properties.of(Material.DIRT).sound(SoundType.GRASS).strength(0.65f, 0.65f).lightLevel(s -> 0));
+		super(Properties.copy(Blocks.DIRT).sound(SoundType.GRASS).strength(0.65f, 0.65f).lightLevel(s -> 0));
 	}
 
 	protected static final VoxelShape BOTTOM_AABB = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 7.0D, 16.0D);
@@ -47,16 +45,11 @@ public class DirtPathSlabBlock extends SlabBlock {
 	}
 
 	@Override
-	public MaterialColor defaultMaterialColor() {
-		return MaterialColor.DIRT;
-	}
-
-	@Override
-	public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+	public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
 		List<ItemStack> dropsOriginal = super.getDrops(state, builder);
 		if (!dropsOriginal.isEmpty())
 			return dropsOriginal;
-		return Collections.singletonList(new ItemStack(this, state.getValue(TYPE) == SlabType.DOUBLE ? 2 : 1));
+		return Collections.singletonList(new ItemStack(this, 1));
 	}
 
 	@OnlyIn(Dist.CLIENT)

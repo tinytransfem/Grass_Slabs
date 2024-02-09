@@ -6,12 +6,11 @@ import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.GrassColor;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CarpetBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
-import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
@@ -28,17 +27,12 @@ public class GrassCarpetBlock extends CarpetBlock {
 	private final Supplier<BlockState> flattenedBlock;
 
 	public GrassCarpetBlock(RegistryObject<DirtPathCarpetBlock> flattenedBlock) {
-		super(Properties.of(Material.GRASS).sound(SoundType.GRASS).strength(0.1f, 0.1f).lightLevel(s -> 0));
+		super(Properties.copy(Blocks.GRASS_BLOCK).sound(SoundType.GRASS).strength(0.1f, 0.1f).lightLevel(s -> 0));
 		this.flattenedBlock = flattenedBlock == null ? null : () -> flattenedBlock.get().defaultBlockState();
 	}
 
 	@Override
-	public MaterialColor defaultMaterialColor() {
-		return MaterialColor.GRASS;
-	}
-
-	@Override
-	public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+	public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
 		List<ItemStack> dropsOriginal = super.getDrops(state, builder);
 		if (!dropsOriginal.isEmpty())
 			return dropsOriginal;
